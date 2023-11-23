@@ -41,14 +41,15 @@ app.get('/api/artists', (req, res) => {
 })
 app.get('/api/discography/:id', (req, res) => {
   const artistId = parseInt(req.params.id);
-  connection.query(`
-    SELECT DISTINCT 
-      SONGS.SONG_NAME,
-      SONGS.RELEASE_DATE,
-      SONGS.LISTEN_COUNT
-    FROM SONGS
-    JOIN SONG_ARTISTS ON SONGS.SONG_ID = SONG_ARTISTS.SONG_ID
-    JOIN ARTISTS ON SONG_ARTISTS.ARTIST_ID = ${artistId};`,
+  connection.query(`SELECT * FROM DISCOGRAPHY WHERE ARTIST_ID=${artistId}`,
+   (queryError, results) => {
+    console.log(results);
+    res.json(results)
+});
+})
+app.get('/api/mostpopular/:id', (req, res) => {
+  const artistId = parseInt(req.params.id);
+  connection.query(`SELECT * FROM ARTISTMOSTPOPULAR WHERE ARTIST_ID=${artistId}`,
    (queryError, results) => {
     console.log(results);
     res.json(results)
