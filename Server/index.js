@@ -41,7 +41,7 @@ app.get('/api/artists', (req, res) => {
 })
 app.get('/api/discography/:id', (req, res) => {
   const artistId = parseInt(req.params.id);
-  connection.query(`SELECT * FROM DISCOGRAPHY WHERE ARTIST_ID=${artistId}`,
+  connection.query(`SELECT * FROM DISCOGRAPHYVIEW WHERE ARTIST_ID=${artistId}`,
    (queryError, results) => {
     console.log(results);
     res.json(results)
@@ -49,7 +49,23 @@ app.get('/api/discography/:id', (req, res) => {
 })
 app.get('/api/mostpopular/:id', (req, res) => {
   const artistId = parseInt(req.params.id);
-  connection.query(`SELECT * FROM ARTISTMOSTPOPULAR WHERE ARTIST_ID=${artistId}`,
+  connection.query(`SELECT * FROM ARTISTMOSTPOPULARVIEW WHERE ARTIST_ID=${artistId}`,
+   (queryError, results) => {
+    console.log(results);
+    res.json(results)
+});
+})
+app.get('/api/album/:id', (req, res) => {
+  const artistId = parseInt(req.params.id);
+  connection.query(`SELECT * FROM ALBUMVIEW WHERE ARTIST_ID=${artistId}`,
+   (queryError, results) => {
+    console.log(results);
+    res.json(results)
+});
+})
+app.get('/api/playlist/:id', (req, res) => {
+  const artistId = parseInt(req.params.id);
+  connection.query(`SELECT * FROM PLAYLISTVIEW WHERE ARTIST_ID=${artistId}`,
    (queryError, results) => {
     console.log(results);
     res.json(results)
