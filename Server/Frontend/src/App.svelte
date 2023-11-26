@@ -33,6 +33,9 @@
 	};
 	let songCreationRes = null;
 
+	let artistCreation = null;
+	let artistCreationRes = null;
+
 	onMount(async () => {
 		fetchAll();
 	});
@@ -149,6 +152,23 @@
 		}
 	}
 
+	async function addArtist() {
+		// console.log(artistCreation);
+		const response = await fetch("/api/addartist", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ artistInfo: artistCreation }),
+		});
+		artistCreationRes = await response.json();
+		console.log(artistCreationRes);
+		if (!artistCreationRes.error) {
+			fetchAll();
+		}
+		queryRes = artistCreationRes;
+	}
+
 	async function addSong() {
 		// console.log(songCreation);
 		const response = await fetch("/api/addsong", {
@@ -212,6 +232,22 @@
 			{/if}
 		</div>
 	{/if}
+	<div class="horizontalFlex">
+		<div class="panelDiv">
+			<div class="itemDiv">
+				<h1>Add Artist</h1>
+				<div style="width: 40%">
+					<label for="artistName">Artist Name: </label>
+					<textarea
+						id="artistName"
+						bind:value={artistCreation}
+						style="width: 75%; height: 25px"
+					></textarea>
+					<button on:click={addArtist}>Add Artist</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="horizontalFlex">
 		<div class="panelDiv">
 			<div class="itemDiv">
@@ -308,7 +344,7 @@
 						</label>
 					{/each}
 				</div>
-				<button on:click={addSong}>Add</button>
+				<button on:click={addSong}>Add Song</button>
 			</div>
 			<div class="itemDiv">
 				<h1>Artist Discography:</h1>

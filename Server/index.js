@@ -129,6 +129,19 @@ app.post('/api/addsong',(req, res) => {
 });
 })
 
+app.post('/api/addartist',(req, res) => {
+  let artistName = req.body.artistInfo
+  connection.query(`INSERT INTO ARTISTS(ARTIST_NAME) VALUES ("${artistName}")`,
+   (queryError, results) => {
+    if (queryError){
+      res.json({error:queryError});
+    }
+    else{
+      res.json(results)
+    }
+});
+})
+
 
 // Catch-all route to serve the main HTML file
 app.get('*', (req, res) => {
