@@ -107,7 +107,7 @@ app.post('/api/addsong',(req, res) => {
   let songInfo = req.body.songInfo
   connection.query(`INSERT INTO SONGS(SONG_NAME, LENGTH, ALBUM_ID, LISTEN_COUNT, RELEASE_DATE) VALUES 
   ("${songInfo.songName}", ${parseInt(songInfo.minutes*60) + parseInt(songInfo.seconds)},
-   ${parseInt(songInfo.albumID)}, ${parseInt(songInfo.listenCount)}, "${songInfo.releaseDate}")`,
+  ${songInfo.albumID ? parseInt(songInfo.albumID) : "NULL"}, ${parseInt(songInfo.listenCount)}, "${songInfo.releaseDate}")`,
    (queryError, results) => {
     if (queryError){
       res.json({error:queryError});
