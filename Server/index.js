@@ -51,6 +51,11 @@ app.get('/api/playlists', (req, res) => {
     res.json(results)
 });
 })
+app.get('/api/genres', (req, res) => {
+  connection.query('SELECT * FROM GENRES', (queryError, results) => {
+    res.json(results)
+});
+})
 app.get('/api/discography/:id', (req, res) => {
   const artistId = parseInt(req.params.id);
   connection.query(`SELECT * FROM DISCOGRAPHYVIEW WHERE ARTIST_ID=${artistId}`,
@@ -93,6 +98,32 @@ app.post('/api/query',(req, res) => {
       res.json({error:queryError});
     }
     else{
+      res.json(results)
+    }
+});
+})
+
+app.post('/api/addsong',(req, res) => {
+  let songInfo = req.body.songInfo
+  connection.query(`INSERT INTO SONGS(SONG_NAME, LENGTH, ALBUM_ID, LISTEN_COUNT, RELEASE_DATE) VALUES 
+  ("${songInfo.songName}", ${parseInt(songInfo.minutes*60) + parseInt(songInfo.seconds)},
+   ${parseInt(songInfo.albumID)}, ${parseInt(songInfo.listenCount)}, "${songInfo.releaseDate}")`,
+   (queryError, results) => {
+    if (queryError){
+      res.json({error:queryError});
+    }
+    else{
+      let genreValues = []
+      songInfo.genres.forEach(element => {
+        genreValues.push('(' + results.insertId + ',' + element + ')')
+      });
+      connection.query('INSERT INTO SONG_GENRES(SONG_ID, GENRE_ID) VALUES ' + genreValues.join(','))
+      
+      let artistValues = []
+      songInfo.artists.forEach(element => {
+        artistValues.push('(' + results.insertId + ',' + element + ')')
+      });
+      connection.query('INSERT INTO SONG_ARTISTS(SONG_ID, ARTIST_ID) VALUES ' + artistValues.join(','))
       res.json(results)
     }
 });
