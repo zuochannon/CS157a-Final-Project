@@ -1,4 +1,3 @@
-
 INSERT INTO ARTISTS (ARTIST_NAME) VALUES
     ('TWICE'), -- 1
     ('K/DA'), -- 2

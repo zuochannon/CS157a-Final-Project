@@ -17,7 +17,7 @@
 	const scrollTop = () => {
 		window.scrollTo({
 			top: 0,
-			behavior: "smooth", // Optional: Add smooth scrolling behavior
+			behavior: "smooth",
 		});
 	};
 
@@ -129,10 +129,10 @@
 	function handleGenreChange(event) {
 		const value = event.target.value;
 		if (event.target.checked) {
-			// If checkbox is checked, add to the selectedOptions array
+			// If checkbox is checked, add to the genres array
 			songCreation.genres = [...songCreation.genres, value];
 		} else {
-			// If checkbox is unchecked, remove from the selectedOptions array
+			// If checkbox is unchecked, remove from the genres array
 			songCreation.genres = songCreation.genres.filter(
 				(option) => option !== value
 			);
@@ -142,10 +142,10 @@
 	function handleArtistChange(event) {
 		const value = event.target.value;
 		if (event.target.checked) {
-			// If checkbox is checked, add to the selectedOptions array
+			// If checkbox is checked, add to the artists array
 			songCreation.artists = [...songCreation.artists, value];
 		} else {
-			// If checkbox is unchecked, remove from the selectedOptions array
+			// If checkbox is unchecked, remove from the artists array
 			songCreation.artists = songCreation.artists.filter(
 				(option) => option !== value
 			);
@@ -153,7 +153,6 @@
 	}
 
 	async function addArtist() {
-		// console.log(artistCreation);
 		const response = await fetch("/api/addartist", {
 			method: "POST",
 			headers: {
@@ -170,7 +169,6 @@
 	}
 
 	async function addSong() {
-		// console.log(songCreation);
 		const response = await fetch("/api/addsong", {
 			method: "POST",
 			headers: {
@@ -188,6 +186,7 @@
 </script>
 
 <body>
+	<!-- FOR QUERY -->
 	<div class="horizontalFlex" style="margin: 30px; align-items:center">
 		<textarea
 			bind:value={queryInput}
@@ -234,6 +233,7 @@
 	{/if}
 	<div class="horizontalFlex">
 		<div class="panelDiv">
+			<!-- ADD NEW ARTIST -->
 			<div class="itemDiv">
 				<h1>Add Artist</h1>
 				<div style="width: 40%">
@@ -246,6 +246,8 @@
 					<button on:click={addArtist}>Add Artist</button>
 				</div>
 			</div>
+
+			<!-- ADD NEW SONG -->
 			<div class="itemDiv">
 				<h1>Add Song</h1>
 				<div class="horizontalFlex">
@@ -385,6 +387,7 @@
 			</div>
 		</div>
 		<div class="panelDiv">
+			<!-- SHOW ARTIST DISCOGRAPHY -->
 			{#if discography != null}
 				<div class="itemDiv">
 					<h1>{info.ARTIST_NAME}'s discography:</h1>
@@ -399,6 +402,7 @@
 					{/each}
 				</div>
 			{/if}
+			<!-- SHOW ARTIST MOST POPULAR -->
 			{#if mostpopular != null}
 				<div class="itemDiv">
 					<h1>{info.ARTIST_NAME}'s Most Popular Songs:</h1>
@@ -410,6 +414,7 @@
 					{/each}
 				</div>
 			{/if}
+			<!-- SHOW ALL ALBUMS -->
 			{#if album != null}
 				<div class="itemDiv">
 					<h1>{info.ALBUM_NAME}:</h1>
@@ -430,6 +435,7 @@
 					{/each}
 				</div>
 			{/if}
+			<!-- SHOW ALL PLAYLISTS -->
 			{#if playlist != null}
 				<div class="itemDiv">
 					<h1>{info.PLAYLIST_NAME}:</h1>
