@@ -246,10 +246,6 @@
 					<button on:click={addArtist}>Add Artist</button>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="horizontalFlex">
-		<div class="panelDiv">
 			<div class="itemDiv">
 				<h1>Add Song</h1>
 				<div class="horizontalFlex">
