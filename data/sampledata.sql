@@ -210,21 +210,30 @@ INSERT INTO ALBUM_GENRES(ALBUM_ID,GENRE_ID) VALUES
 
 INSERT INTO USERS (USERNAME, FIRST_NAME, LAST_NAME) 
 VALUES 
-    ('cuutie', 'Cutie', 'Cherry'),
-    ('streamer', 'Ash', 'Ashington'),
-    ('edgelord', 'Viego', 'Pentakill');
+    ('cuutie', 'Cutie', 'Cherry'), -- 1
+    ('streamer', 'Ash', 'Ashington'), -- 2
+    ('edgelord', 'Viego', 'Pentakill'); -- 3
 
 INSERT INTO PLAYLISTS (PLAYLIST_AUTHOR, PLAYLIST_NAME, CREATION_DATE)
 VALUES  
-    (1, 'Current Listens', '2023-06-09'),
-    (1, 'Guilty Pleasures', '2022-01-31'),
-    (3, 'Work Out Tunes', '2023-07-12');
+    (1, 'Current Listens', '2023-06-09'), -- 1
+    (1, 'Guilty Pleasures', '2022-01-31'), -- 2
+    (3, 'Work Out Tunes', '2023-07-12'), -- 3
+    (2, 'Title Tracks Only!!', '2023-11-25'), -- 4
+    (3, 'i miss my wife', '2010-01-30'); -- 5
 
 INSERT INTO PLAYLIST_SONGS (PLAYLIST_ID, SONG_ID)
 VALUES
-    (1, 5),
+    (1, 5), 
     (1, 4),
     (1, 1),
     (2, 2),
     (2, 4),
-    (3, 3);
+    (3, 3),
+    (4, 2),
+    (4, 8),
+    (4, 23),
+    (4, 30),
+    (5, 29),
+    (5, 32),
+    (5, 35);
