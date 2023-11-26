@@ -251,44 +251,53 @@
 			<div class="itemDiv">
 				<h1>Add Song</h1>
 				<div class="horizontalFlex">
-					<div style="width: 40%">
+					<div
+						style="flex: 2; margin-right: 10px; display: inline-block;"
+					>
 						<label for="songName">Song Name: </label>
 						<textarea
 							id="songName"
 							bind:value={songCreation.songName}
-							style="width: 75%; height: 25px"
+							style="width: 100%; height: 25px"
 						></textarea>
 					</div>
-					<div style="width: 10%">
+					<div
+						style="flex: 1; width: 40px; margin-right: 10px; display: inline-block;"
+					>
 						<label for="minutes">Minutes: </label>
 						<textarea
 							id="minutes"
 							bind:value={songCreation.minutes}
-							style="width: 75%; height: 25px"
+							style="width: 100%; height: 25px"
 						></textarea>
 					</div>
-					<div style="width: 10%">
+					<div
+						style="flex: 1; width: 40px; margin-right: 10px; display: inline-block;"
+					>
 						<label for="seconds">Seconds: </label>
 						<textarea
 							id="seconds"
 							bind:value={songCreation.seconds}
-							style="width: 75%; height: 25px"
+							style="width: 100%; height: 25px"
 						></textarea>
 					</div>
-					<div style="width: 20%">
+					<div
+						style="flex: 1.5; margin-right: 10px; display: inline-block;"
+					>
 						<label for="listenCount">Listen Count: </label>
 						<textarea
 							id="listenCount"
 							bind:value={songCreation.listenCount}
-							style="width: 75%; height: 25px"
+							style="width: 100%; height: 25px"
 						></textarea>
 					</div>
-					<div style="width: 20%">
+					<div style="flex: 1; display: inline-block;">
 						<label for="releaseDate">Release Date: </label>
 						<input
 							type="date"
 							id="releaseDate"
 							bind:value={songCreation.releaseDate}
+							style="width: 100%;"
 						/>
 					</div>
 				</div>
