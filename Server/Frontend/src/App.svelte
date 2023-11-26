@@ -14,6 +14,13 @@
 	let queryInput;
 	let queryRes = null;
 
+	const scrollTop = () => {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth", // Optional: Add smooth scrolling behavior
+		});
+	};
+
 	let songCreation = {
 		songName: "",
 		minutes: 0,
@@ -61,6 +68,7 @@
 	}
 	let pathstart = "";
 	async function discographyView(artist) {
+		scrollTop();
 		deselectAll();
 		info = artist;
 		let res = await fetch(
@@ -69,6 +77,7 @@
 		discography = await res.json();
 	}
 	async function mostPopularView(artist) {
+		scrollTop();
 		deselectAll();
 		info = artist;
 		let res = await fetch(
@@ -77,6 +86,7 @@
 		mostpopular = await res.json();
 	}
 	async function albumView(albumobj) {
+		scrollTop();
 		deselectAll();
 		info = albumobj;
 		console.log(albumobj);
@@ -84,6 +94,7 @@
 		album = await res.json();
 	}
 	async function playlistView(playlistobj) {
+		scrollTop();
 		deselectAll();
 		console.log(playlistobj);
 		info = playlistobj;
