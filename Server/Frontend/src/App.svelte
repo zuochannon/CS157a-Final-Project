@@ -183,7 +183,7 @@
 			<h3>
 				{queryRes.error.sqlMessage}
 			</h3>
-			{:else if queryRes.insertId}
+			{:else if queryRes.insertId!=undefined}
 			<h3>
 				Done. InsertID:{queryRes.insertId}
 			</h3>
