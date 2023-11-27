@@ -1,0 +1,5 @@
+#Build
+docker build -t your-mysql-node-image .
+
+#Run
+docker run --name MusicApp -p 3306:3306 -p 3000:3000 -d MusicApp
