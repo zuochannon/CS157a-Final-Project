@@ -7,29 +7,34 @@ const port = 3000; // You can change this to any port you prefer
 const path = require('path');
 const mysql = require('mysql');
 const e = require('express');
+const { error } = require('console');
 // Parse JSON bodies
 app.use(bodyParser.json());
 
 // Create a connection to the database
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'MusicDatabase',
-});
+let connection
 
-// Connect to the database
-connection.connect((err) => {
-  if (err) {
-    console.error('Error connecting to the database:', err);
-    return;
-  }
-  console.log('Connected to the database');
-  
-  
-});
-
-
+function connect(){
+  console.log("trying to connect");
+  connection = mysql.createConnection({
+    host: 'mysql',
+    user: 'root',
+    password: 'password',
+    database: 'MusicDatabase',
+  });
+  connection.connect((err) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+      
+      setTimeout(connect,1000);
+      return
+    }
+    console.log('Connected to the database');
+    
+    
+  });
+}
+connect();
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'Frontend/public')));
@@ -38,21 +43,25 @@ app.use(express.static(path.join(__dirname, 'Frontend/public')));
 
 app.get('/api/artists', (req, res) => {
   connection.query('SELECT * FROM ARTISTS', (queryError, results) => {
+    console.log(results);
     res.json(results)
 });
 })
 app.get('/api/albums', (req, res) => {
   connection.query(`SELECT * FROM ALBUMINFOVIEW`, (queryError, results) => {
+    console.log(results);
     res.json(results)
 });
 })
 app.get('/api/playlists', (req, res) => {
   connection.query('SELECT * FROM PLAYLISTINFOVIEW', (queryError, results) => {
+    console.log(results);
     res.json(results)
 });
 })
 app.get('/api/genres', (req, res) => {
   connection.query('SELECT * FROM GENRES', (queryError, results) => {
+    console.log(results);
     res.json(results)
 });
 })
@@ -60,6 +69,7 @@ app.get('/api/discography/:id', (req, res) => {
   const artistId = parseInt(req.params.id);
   connection.query(`SELECT * FROM DISCOGRAPHYVIEW WHERE ARTIST_ID=${artistId}`,
    (queryError, results) => {
+    console.log(results);
     res.json(results)
 });
 })
@@ -67,6 +77,7 @@ app.get('/api/mostpopular/:id', (req, res) => {
   const artistId = parseInt(req.params.id);
   connection.query(`SELECT * FROM ARTISTMOSTPOPULARVIEW WHERE ARTIST_ID=${artistId}`,
    (queryError, results) => {
+    console.log(results);
     res.json(results)
 });
 })
@@ -74,6 +85,7 @@ app.get('/api/album/:id', (req, res) => {
   const albumID = parseInt(req.params.id);
   connection.query(`SELECT * FROM ALBUMSONGSVIEW WHERE ALBUM_ID=${albumID}`,
    (queryError, results) => {
+    console.log(results);
     res.json(results)
 });
 })
@@ -81,24 +93,27 @@ app.get('/api/playlist/:id', (req, res) => {
   const playlistID = parseInt(req.params.id);
   connection.query(`SELECT * FROM PLAYLISTSONGVIEW WHERE PLAYLIST_ID=${playlistID}`,
    (queryError, results) => {
+    console.log(results);
     res.json(results)
 });
 })
 
 app.post('/api/query',(req, res) => {
-  const insertRegex = /^INSERT\s+INTO\s+/i;
-  const selectRegex = /^SELECT\s+/i;
-  if (!insertRegex.test(req.body.query) && !selectRegex.test(req.body.query)){
-    res.json({error:{sqlMessage:"Invalid query type. SELECT or INSERT only"}})
-    return;
-  }
+  // const insertRegex = /^INSERT\s+INTO\s+/i;
+  // const selectRegex = /^SELECT\s+/i;
+  // if (!insertRegex.test(req.body.query) && !selectRegex.test(req.body.query)){
+  //   res.json({error:{sqlMessage:"Invalid query type. SELECT or INSERT only"}})
+  //   return;
+  // }
   connection.query(req.body.query,
    (queryError, results) => {
     if (queryError){
       res.json({error:queryError});
+      console.log(queryError);
     }
     else{
       res.json(results)
+      console.log(results);
     }
 });
 })
@@ -117,14 +132,18 @@ app.post('/api/addsong',(req, res) => {
       songInfo.genres.forEach(element => {
         genreValues.push('(' + results.insertId + ',' + element + ')')
       });
-      connection.query('INSERT INTO SONG_GENRES(SONG_ID, GENRE_ID) VALUES ' + genreValues.join(','))
-      
+      if (genreValues.length>0){
+        connection.query('INSERT INTO SONG_GENRES(SONG_ID, GENRE_ID) VALUES ' + genreValues.join(','))
+      }
       let artistValues = []
       songInfo.artists.forEach(element => {
         artistValues.push('(' + results.insertId + ',' + element + ')')
       });
+      if (artistValues.length>0){
       connection.query('INSERT INTO SONG_ARTISTS(SONG_ID, ARTIST_ID) VALUES ' + artistValues.join(','))
+      }
       res.json(results)
+      console.log(results);
     }
 });
 })
@@ -138,6 +157,7 @@ app.post('/api/addartist',(req, res) => {
     }
     else{
       res.json(results)
+      console.log(results);
     }
 });
 })

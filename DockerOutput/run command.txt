@@ -1,0 +1,3 @@
+docker load --input db.tar && docker load --input backend.tar
+
+docker-compose up

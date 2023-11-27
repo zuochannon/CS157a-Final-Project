@@ -78,6 +78,7 @@
 			pathstart + "/api/discography/" + artist.ARTIST_ID
 		);
 		discography = await res.json();
+		console.log(discography)
 	}
 	async function mostPopularView(artist) {
 		scrollTop();
@@ -87,6 +88,7 @@
 			pathstart + "/api/mostpopular/" + artist.ARTIST_ID
 		);
 		mostpopular = await res.json();
+		console.log(mostpopular)
 	}
 	async function albumView(albumobj) {
 		scrollTop();
@@ -95,17 +97,18 @@
 		console.log(albumobj);
 		let res = await fetch(pathstart + "/api/album/" + albumobj.ALBUM_ID);
 		album = await res.json();
+		console.log(albumView)
 	}
 	async function playlistView(playlistobj) {
 		scrollTop();
 		deselectAll();
-		console.log(playlistobj);
 		info = playlistobj;
 		let res = await fetch(
 			pathstart + "/api/playlist/" + playlistobj.PLAYLIST_ID
 		);
 		playlist = await res.json();
-		console.log(playlistobj);
+		console.log(playlist);
+
 	}
 	async function query() {
 		const response = await fetch("/api/query", {

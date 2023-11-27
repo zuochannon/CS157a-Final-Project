@@ -1,0 +1,8 @@
+#Build
+docker build -t musicapp .m
+
+#Run
+docker run --name musicapp -p 3306:3306 -p 3000:3000 -d musicapp
+
+
+docker-compose up

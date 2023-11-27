@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mysql:
+    image: cs157a-final-project-mysql
+    ports:
+      - "3306:3306"
+
+  nodeapp:
+    image: cs157a-final-project-nodeapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
