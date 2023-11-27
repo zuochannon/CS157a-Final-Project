@@ -186,6 +186,9 @@
 </script>
 
 <body>
+	<div class="horizontalFlex" style="align-items: center;">
+		<h1 style="margin:auto;padding:20px">MusicApp</h1>
+	</div>
 	<!-- FOR QUERY -->
 	<div class="horizontalFlex" style="margin: 30px; align-items:center">
 		<textarea
