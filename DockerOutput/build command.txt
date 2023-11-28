@@ -1,0 +1,2 @@
+docker save cs157a-final-project-mysql -o db.tar
+docker save cs157a-final-project-nodeapp -o backend.tar
